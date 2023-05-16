@@ -6,8 +6,8 @@ body{
     /*background: var(--tg-theme-bg-color);*/
 }
 .slidershow{
-    width: 640px;
-    height: 640px;
+    width: 960px;
+    height: 960px;
     overflow: hidden;
 }
 /*.middle{*/
