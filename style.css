@@ -14,7 +14,7 @@ body{
     position: absolute;
     top: 20%;
     left: 40%;
-    transform: translate(-50%, -50%);
+    /*transform: translate(-50%, -50%);*/
 }
 .navigation{
     position: absolute;
