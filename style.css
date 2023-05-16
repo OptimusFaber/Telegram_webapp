@@ -19,7 +19,7 @@ body{
 /*}*/
 .navigation{
     position: absolute;
-    top: 420px; left: 190px;
+    top: 440px; left: 192px;
     /*bottom: 200px;*/
     padding-left: 6px;
     /*padding-top: 200px;*/
@@ -28,7 +28,7 @@ body{
     display: flex;
 }
 .bar{
-    width: 14px;
+    width: 13px;
     height: 10px;
     border: 2px solid #2f3640;
     margin: 4px;
