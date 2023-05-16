@@ -6,13 +6,13 @@ body{
     /*background: var(--tg-theme-bg-color);*/
 }
 .slidershow{
-    width: 350px;
-    height: 350px;
+    width: 700px;
+    height: 700px;
     overflow: hidden;
 }
 .middle{
     position: absolute;
-    top: 40%;
+    top: 20%;
     left: 20%;
     transform: translate(-50%, -50%);
 }
