@@ -45,42 +45,55 @@
       }
 
       button {
-        border: 0;
-        border-radius: 5px;
-        height: 60px;
-        width: 100px;
-        font-size:20px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 500ms ease;
-        color: var(--tg-theme-button-color);
-        background: var(--tg-theme-buttom-text-color);
-
-        margin: 0 auto;
-        display: block;
+          background-color: white; /* Green */
+          border: 2px solid #4CAF50;
+          color: black;
+          padding: 16px 4px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 11px;
+          margin: 1px 0px;
+          transition-duration: 0.4s;
+          cursor: pointer;
       }
 
       button:hover {
-        background: var(--tg-theme-secondary-bg-color);
+          background-color: #4CAF50;
+          color: white;
       }
 
+      #pic{
+          margin-left: 600px;
+      }
+
+      #user_fname{
+          margin-left: 500px;
+      }
     </style>
 </head>
 <body>
   <form id="form">
-    <input type="text" placeholder="Имя" id="user_fname">
+    <input type="text" placeholder="Имя" width="40%" id="user_fname">
     <input type="text" placeholder="Фамилия" id="user_lname">
     <input type="text" placeholder="Почта" id="user_email">
     <button id="order">Записаться</button>
+      <img src="https://media.tenor.com/nW1YVHy5gycAAAAC/phone-cell.gif" alt="" width="40%" id="pic" >
   </form>
   <script scrc="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    // let tg = window.Telegram.WebApp;
-    let remember = document.getElementById("order");
-    // let order =  document.getElementById("order");
+    let tg = window.Telegram.WebApp;
+    let remember = document.getElementById("remember");
+    let order =  document.getElementById("order");
 
     remember.addEventListener("click", () => {
-      document.getElementById("form").style.display = "none";
+        document.getElementById("form").style.display = "block";
+        document.getElementById("user_fname").value = tg.initDataUnsafe.first_name;
+        document.getElementById("user_lname").value = tg.initDataUnsafe.last_name;
+    })
+
+    order.addEventListener("click", () => {
+        tg.close();
     })
 
 
