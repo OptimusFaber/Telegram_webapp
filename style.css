@@ -10,12 +10,12 @@ body{
     height: 350px;
     overflow: hidden;
 }
-.middle{
-    /*position: absolute;*/
-    top: 20%;
-    left: 40%;
-    /*transform: translate(-50%, -50%);*/
-}
+/*.middle{*/
+/*    !*position: absolute;*!*/
+/*    top: 20%;*/
+/*    left: 40%;*/
+/*    !*transform: translate(-50%, -50%);*!*/
+/*}*/
 .navigation{
     position: absolute;
     bottom: 20px;
