@@ -6,9 +6,9 @@ body{
     /*background: var(--tg-theme-bg-color);*/
 }
 .slidershow{
-    width: 320px;
-    height: 320px;
-    overflow: hidden;
+    width: 350px;
+    height: 350px;
+    /*overflow: hidden;*/
 }
 .middle{
     position: absolute;
