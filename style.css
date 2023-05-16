@@ -1,8 +1,9 @@
 body{
     margin: 0;
     padding: 0;
-    color: var(--tg-theme-text-color);
-    background: var(--tg-theme-bg-color);
+    color: #ffffff;
+    /*color: var(--tg-theme-text-color);*/
+    /*background: var(--tg-theme-bg-color);*/
 }
 .slidershow{
     width: 1280px;
