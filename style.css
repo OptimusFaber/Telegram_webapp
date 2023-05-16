@@ -6,8 +6,8 @@ body{
     background: var(--tg-theme-bg-color);
 }
 .slidershow{
-    width: 1200px;
-    height: 1200px;
+    width: 1024px;
+    height: 1024px;
     overflow: hidden;
 }
 /*.middle{*/
@@ -19,6 +19,7 @@ body{
 .navigation{
     position: absolute;
     bottom: 20px;
+    padding: 5px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
