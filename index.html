@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-<html ng-app="custom-webapp-ui">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Telegram Web App</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script>
-    angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope) {
-      const mainButton = window.Telegram.WebApp.MainButton;
-      mainButton.text = "Share this content";
-      mainButton.enable();
-      mainButton.show();
-      
-      mainButton.onClick(function(){
-        Telegram.WebApp.showPopup({
-          title: "Share",
-          message: "This will share the content with your contacts.",
-          buttons: [
-            {id: "share", type: "default", text: "Share", action: function(){
-              Telegram.WebApp.sendData(JSON.stringify({action: "share", content: "Here is the content to share!"}));
-            }},
-            {id: "close", type: "close", text: "Close"}
-          ]
-        });
-      });
-    });
+    window.onload = function() {
+      console.log("Page Loaded");
+
+      // Создаем кнопку "Share in Telegram"
+      const shareButton = document.createElement('button');
+      shareButton.textContent = "Share in Telegram";
+      shareButton.style.fontSize = "16px";
+      shareButton.style.padding = "10px 20px";
+      shareButton.style.cursor = "pointer";
+
+      // Обработчик клика по кнопке
+      shareButton.onclick = function() {
+        console.log("Share Button Clicked");
+
+        // Открываем окно "Поделиться постом" в Telegram
+        const postUrl = "https://t.me/c/2162847390/30";
+        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+        window.open(telegramShareUrl, '_blank');
+      };
+
+      // Добавляем кнопку на страницу
+      document.body.appendChild(shareButton);
+    };
   </script>
 </head>
-<body ng-controller="CustomUIController">
+<body>
   <h1>Hello, Telegram!</h1>
 </body>
 </html>
