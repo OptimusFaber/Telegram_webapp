@@ -1,35 +1,33 @@
-<html ng-app="custom-webapp-ui" lang="en" style="background-color: white">
-  <head>
-    <!-- Load the Telegram Library -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-      // Initialize the AngularJS application
-      angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope) {
-
-        // Initialize the main button
-        const mainButton = window.Telegram.WebApp.MainButton;
-        mainButton.text = "Share this content";
-        mainButton.enable();
-        mainButton.show();
-
-        // Handle button click
-        mainButton.onClick(function(){
-          // Action to share content
-          Telegram.WebApp.showPopup({
-            title: "Share",
-            message: "This will share the content with your contacts.",
-            buttons: [
-              {id: "share", type: "default", text: "Share", action: function(){
-                Telegram.WebApp.sendData(JSON.stringify({action: "share", content: "Here is the content to share!"}));
-              }},
-              {id: "close", type: "close", text: "Close"}
-            ]
-          });
+<!DOCTYPE html>
+<html ng-app="custom-webapp-ui">
+<head>
+  <meta charset="UTF-8">
+  <title>Telegram Web App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope) {
+      const mainButton = window.Telegram.WebApp.MainButton;
+      mainButton.text = "Share this content";
+      mainButton.enable();
+      mainButton.show();
+      
+      mainButton.onClick(function(){
+        Telegram.WebApp.showPopup({
+          title: "Share",
+          message: "This will share the content with your contacts.",
+          buttons: [
+            {id: "share", type: "default", text: "Share", action: function(){
+              Telegram.WebApp.sendData(JSON.stringify({action: "share", content: "Here is the content to share!"}));
+            }},
+            {id: "close", type: "close", text: "Close"}
+          ]
         });
       });
-    </script>
-  </head>
-  <body ng-controller="CustomUIController">
-    <!-- No need to add anything else in the body as everything is handled by the script -->
-  </body>
+    });
+  </script>
+</head>
+<body ng-controller="CustomUIController">
+  <h1>Hello, Telegram!</h1>
+</body>
 </html>
