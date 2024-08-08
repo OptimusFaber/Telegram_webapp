@@ -1,134 +1,35 @@
-<!DOCTYPE html>
-<html lang="ru" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-        <link rel="stylesheet" href="style.css">
-        <style>
-            .button {
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 16px 4px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 11px;
-                margin: 1px 0px;
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
-            .button1 {
-                background-color: white;
-                color: black;
-                border: 2px solid #4CAF50;
-            }
+<html ng-app="custom-webapp-ui" lang="en" style="background-color: white">
+  <head>
+    <!-- Load the Telegram Library -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      // Initialize the AngularJS application
+      angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope) {
 
-            .button1:hover {
-                background-color: #4CAF50;
-                color: white;
-            }
-        </style>
+        // Initialize the main button
+        const mainButton = window.Telegram.WebApp.MainButton;
+        mainButton.text = "Share this content";
+        mainButton.enable();
+        mainButton.show();
 
-        <script>
-            function openWin() {
-                window.open("registration.html");
-            }
-        </script>
-    </head>
-    <body>
-<!--        <h2>Hoverable Buttons</h2>-->
-<!--        <button class="button button1">Обратная связь</button>-->
-        <form>
-            <input class="button button1" value="Обратная связь" onclick="openWin()">
-        </form>
-        <div class="slidershow middle">
-            <div class="slides">
-                <input type="radio" name="r" id="r1" checked>
-                <input type="radio" name="r" id="r2">
-                <input type="radio" name="r" id="r3">
-                <input type="radio" name="r" id="r4">
-                <input type="radio" name="r" id="r5">
-                <input type="radio" name="r" id="r6">
-                <input type="radio" name="r" id="r7">
-                <input type="radio" name="r" id="r8">
-                <input type="radio" name="r" id="r9">
-                <input type="radio" name="r" id="r10">
-                <input type="radio" name="r" id="r11">
-                <input type="radio" name="r" id="r12">
-                <input type="radio" name="r" id="r13">
-                <input type="radio" name="r" id="r14">
-                <input type="radio" name="r" id="r15">
-                <input type="radio" name="r" id="r16">
-                <div class="slide s1">
-                    <img src="media/1.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/2.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/3.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/4.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/5.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/6.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/7.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/8.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/9.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/10.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/11.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/12.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/13.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/14.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/15.png" alt="">
-                </div>
-                <div class="slide">
-                    <img src="media/16.png" alt="">
-                </div>
-
-            </div>
-
-            <div class="navigation">
-                <label for="r1" class="bar"></label>
-                <label for="r2" class="bar"></label>
-                <label for="r3" class="bar"></label>
-                <label for="r4" class="bar"></label>
-                <label for="r5" class="bar"></label>
-                <label for="r6" class="bar"></label>
-                <label for="r7" class="bar"></label>
-                <label for="r8" class="bar"></label>
-                <label for="r9" class="bar"></label>
-                <label for="r10" class="bar"></label>
-                <label for="r11" class="bar"></label>
-                <label for="r12" class="bar"></label>
-                <label for="r13" class="bar"></label>
-                <label for="r14" class="bar"></label>
-                <label for="r15" class="bar"></label>
-                <label for="r16" class="bar"></label>
-            </div>
-        </div>
-    </body>
+        // Handle button click
+        mainButton.onClick(function(){
+          // Action to share content
+          Telegram.WebApp.showPopup({
+            title: "Share",
+            message: "This will share the content with your contacts.",
+            buttons: [
+              {id: "share", type: "default", text: "Share", action: function(){
+                Telegram.WebApp.sendData(JSON.stringify({action: "share", content: "Here is the content to share!"}));
+              }},
+              {id: "close", type: "close", text: "Close"}
+            ]
+          });
+        });
+      });
+    </script>
+  </head>
+  <body ng-controller="CustomUIController">
+    <!-- No need to add anything else in the body as everything is handled by the script -->
+  </body>
 </html>
