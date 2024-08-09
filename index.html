@@ -61,10 +61,12 @@
                 const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
                 window.open(telegramShareUrl, '_blank');
 
-                // Уменьшаем счетчик и сохраняем его в localStorage
-                shareCounter--;
-                localStorage.setItem('shareCounter', shareCounter);
-                updateCounter();
+                // Уменьшаем счетчик с задержкой
+                setTimeout(function() {
+                    shareCounter--;
+                    localStorage.setItem('shareCounter', shareCounter);
+                    updateCounter();
+                }, 1000); // Задержка в 1 секунду
             };
         };
 
