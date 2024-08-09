@@ -44,11 +44,6 @@
         window.onload = function() {
             console.log("Page Loaded");
 
-            // Проверяем наличие сохраненного значения счетчика в localStorage
-            if (localStorage.getItem('shareCounter')) {
-                shareCounter = parseInt(localStorage.getItem('shareCounter'));
-            }
-
             // Обновляем счетчик
             updateCounter();
 
@@ -61,12 +56,11 @@
                 const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
                 window.open(telegramShareUrl, '_blank');
 
-                // Уменьшаем счетчик с задержкой
+                // Задержка перед уменьшением счетчика, чтобы дать время пользователю вернуться
                 setTimeout(function() {
                     shareCounter--;
-                    localStorage.setItem('shareCounter', shareCounter);
                     updateCounter();
-                }, 1000); // Задержка в 1 секунду
+                }, 3000); // Задержка в 3 секунды
             };
         };
 
