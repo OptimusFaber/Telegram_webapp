@@ -56,13 +56,10 @@
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
-                // Формируем ссылку для отправки в inline mode
-                const botUsername = "VicariaBot"; // Имя вашего бота
-                const postUrl = "https://example.com"; // Ссылка, которую хотите отправить
-                const inlineQueryLink = `https://t.me/${botUsername}?start=${encodeURIComponent(postUrl)}`;
-
-                // Открываем окно выбора чата и отправляем ссылку через inline mode
-                window.open(inlineQueryLink, '_blank');
+                // Открываем окно "Поделиться постом" в Telegram
+                const postUrl = "https://t.me/dvachannel/143325";
+                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+                window.open(telegramShareUrl, '_blank');
 
                 // Уменьшаем счетчик с задержкой
                 setTimeout(function() {
