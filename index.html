@@ -44,6 +44,11 @@
         window.onload = function() {
             console.log("Page Loaded");
 
+            // Проверяем наличие сохраненного значения счетчика в localStorage
+            if (localStorage.getItem('shareCounter')) {
+                shareCounter = parseInt(localStorage.getItem('shareCounter'));
+            }
+
             // Обновляем счетчик
             updateCounter();
 
@@ -51,16 +56,20 @@
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
-                // Открываем окно "Поделиться постом" в Telegram
-                const postUrl = "https://t.me/dvachannel/143325";
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-                window.open(telegramShareUrl, '_blank');
+                // Формируем ссылку для отправки в inline mode
+                const botUsername = "VicariaBot"; // Имя вашего бота
+                const postUrl = "https://example.com"; // Ссылка, которую хотите отправить
+                const inlineQueryLink = `https://t.me/${botUsername}?start=${encodeURIComponent(postUrl)}`;
 
-                // Уменьшаем счетчик с небольшой задержкой
-                setTimeout(() => {
+                // Открываем окно выбора чата и отправляем ссылку через inline mode
+                window.open(inlineQueryLink, '_blank');
+
+                // Уменьшаем счетчик с задержкой
+                setTimeout(function() {
                     shareCounter--;
+                    localStorage.setItem('shareCounter', shareCounter);
                     updateCounter();
-                }, 1000);
+                }, 1000); // Задержка в 1 секунду
             };
         };
 
