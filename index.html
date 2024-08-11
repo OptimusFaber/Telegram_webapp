@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e9edf0; /* Светло-серый */
-            color: #2a3f54; /* Темно-синий */
+            background-color: #e9edf0;
+            color: #2a3f54;
             text-align: center;
             padding: 50px;
             margin: 0;
@@ -24,7 +24,7 @@
         }
 
         #shareButton {
-            background-color: #2a3f54; /* Темно-синий */
+            background-color: #2a3f54;
             color: #ffffff;
             font-size: 18px;
             padding: 15px 30px;
@@ -42,31 +42,26 @@
         let shareCounter = 5;
 
         window.onload = function() {
-            console.log("Page Loaded");
-
-            // Проверяем наличие сохраненного значения счетчика в localStorage
             if (localStorage.getItem('shareCounter')) {
                 shareCounter = parseInt(localStorage.getItem('shareCounter'));
             }
 
-            // Обновляем счетчик
             updateCounter();
 
-            // Обработчик клика по кнопке
             document.getElementById('shareButton').onclick = function() {
-                console.log("Share Button Clicked");
-
-                // Открываем окно "Поделиться постом" в Telegram
+                const botUsername = '@VicariaBot';
+                const messageText = 'Check this out!';
                 const postUrl = "https://t.me/dvachannel/143325";
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-                window.open(telegramShareUrl, '_blank');
+                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(botUsername)}`;
 
-                // Уменьшаем счетчик с задержкой
+                window.open(telegramShareUrl, '_blank');
+                
+                // Снижение счетчика после задержки
                 setTimeout(function() {
                     shareCounter--;
                     localStorage.setItem('shareCounter', shareCounter);
                     updateCounter();
-                }, 1000); // Задержка в 1 секунду
+                }, 1000);
             };
         };
 
@@ -74,7 +69,6 @@
             const counterElement = document.getElementById('counter');
             counterElement.textContent = shareCounter;
 
-            // Если счетчик достиг нуля, показываем сообщение
             if (shareCounter <= 0) {
                 document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
             }
