@@ -1,35 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Telegram Web App</title>
-  <script>
-    window.onload = function() {
-      console.log("Page Loaded");
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9edf0; /* Светло-серый */
+            color: #2a3f54; /* Темно-синий */
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
 
-      // Создаем кнопку "Share in Telegram"
-      const shareButton = document.createElement('button');
-      shareButton.textContent = "Share in Telegram";
-      shareButton.style.fontSize = "16px";
-      shareButton.style.padding = "10px 20px";
-      shareButton.style.cursor = "pointer";
+        h1 {
+            margin-bottom: 20px;
+        }
 
-      // Обработчик клика по кнопке
-      shareButton.onclick = function() {
-        console.log("Share Button Clicked");
+        #counter {
+            font-size: 48px;
+            margin: 20px 0;
+        }
 
-        // Открываем окно "Поделиться постом" в Telegram
-        const postUrl = "https://t.me/dvachannel/143325";
-        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-        window.open(telegramShareUrl, '_blank');
-      };
+        #shareButton {
+            background-color: #2a3f54; /* Темно-синий */
+            color: #ffffff;
+            font-size: 18px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-      // Добавляем кнопку на страницу
-      document.body.appendChild(shareButton);
-    };
-  </script>
+        #shareButton:disabled {
+            background-color: #7a8b99;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        let shareCounter = 5;
+
+        window.onload = function() {
+            console.log("Page Loaded");
+
+            // Обновляем счетчик
+            updateCounter();
+
+            // Обработчик клика по кнопке
+            document.getElementById('shareButton').onclick = function() {
+                console.log("Share Button Clicked");
+
+                // Открываем окно "Поделиться постом" в Telegram
+                const postUrl = "https://t.me/dvachannel/143325";
+                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+                window.open(telegramShareUrl, '_blank');
+
+                // Уменьшаем счетчик
+                shareCounter--;
+                updateCounter();
+            };
+        };
+
+        function updateCounter() {
+            const counterElement = document.getElementById('counter');
+            counterElement.textContent = shareCounter;
+
+            // Если счетчик достиг нуля, показываем сообщение
+            if (shareCounter <= 0) {
+                document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
+            }
+        }
+    </script>
 </head>
 <body>
-  <h1>Hello, Telegram!</h1>
+    <h1>Поделитесь с друзьями:</h1>
+    <div id="counter">5</div>
+    <button id="shareButton">Поделиться</button>
 </body>
 </html>
