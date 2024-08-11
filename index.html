@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Telegram Web App</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script> <!-- Подключение Telegram Web App API -->
   <script>
     window.onload = function() {
       console.log("Page Loaded");
@@ -19,27 +18,10 @@
       shareButton.onclick = function() {
         console.log("Share Button Clicked");
 
+        // Открываем окно "Поделиться постом" в Telegram
         const postUrl = "@VicariaBot https://t.me/dvachannel/143325";
-        const iosUrl = "https://t.me/dvachannel/143325";
         const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-
-        // Проверяем, выполняется ли код в контексте Telegram Web App
-        if (typeof Telegram !== 'undefined' && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
-          if (Telegram.WebApp.platform === 'ios') {
-            // На iOS используем Telegram WebApp API для открытия ссылки
-            Telegram.WebApp.openTelegramLink(iosUrl);
-            Telegram.WebApp.showPopup({
-              message: "На iPhone эта функция работает иначе. Выберите функцию поделиться постом и пропишите в сообщении @VicariaBot.",
-              buttons: [{ text: "OK", type: "close" }]
-            });
-          } else {
-            // На других платформах открываем окно "Поделиться"
-            window.open(telegramShareUrl, '_blank');
-          }
-        } else {
-          // Для всех остальных случаев просто открываем ссылку в новом окне
-          window.open(telegramShareUrl, '_blank');
-        }
+        window.open(telegramShareUrl, '_blank');
       };
 
       // Добавляем кнопку на страницу
