@@ -36,10 +36,10 @@
             window.open(telegramShareUrl, '_blank');
           }
         } else {
-          Telegram.WebApp.showPopup({
-              message: "Telegram WebApp API недоступен.",
-              buttons: [{ text: "OK", type: "close" }]
-            });
+          const postUrl = "@VicariaBot https://t.me/dvachannel/143325";
+            // На остальных платформах открываем окно "Поделиться"
+            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+            window.open(telegramShareUrl, '_blank');
         }
       };
 
