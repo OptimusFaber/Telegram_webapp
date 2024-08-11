@@ -8,31 +8,32 @@
         window.onload = function() {
             console.log("Page Loaded");
 
-            // Создаем кнопку "Поделиться в Telegram"
-            const shareButton = document.createElement('button');
-            shareButton.textContent = "Поделиться в Telegram";
-            shareButton.style.fontSize = "16px";
-            shareButton.style.padding = "10px 20px";
-            shareButton.style.cursor = "pointer";
+            // Create the "Forward in Telegram" button
+            const forwardButton = document.createElement('button');
+            forwardButton.textContent = "Forward in Telegram";
+            forwardButton.style.fontSize = "16px";
+            forwardButton.style.padding = "10px 20px";
+            forwardButton.style.cursor = "pointer";
 
-            // Обработчик клика по кнопке
-            shareButton.onclick = function() {
-                console.log("Share Button Clicked");
+            // Click handler for the button
+            forwardButton.onclick = function() {
+                console.log("Forward Button Clicked");
 
-                // Открываем окно выбора чата для пересылки
-                const postUrl = "https://t.me/dvachannel/143325";
-                const messageText = `@VicariaBot ${postUrl}`;
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(messageText)}`;
-                
-                window.open(telegramShareUrl, '_blank');
+                // Instead of sharing, send a message via your bot that the user can forward
+                const botUsername = "@VicariaBot";
+                const messageToForward = `https://t.me/dvachannel/143325`;
+                const forwardLink = `https://t.me/${botUsername}?start=${encodeURIComponent(messageToForward)}`;
+
+                // Open the bot chat with the predefined message
+                window.open(forwardLink, '_blank');
             };
 
-            // Добавляем кнопку на страницу
-            document.body.appendChild(shareButton);
+            // Add the button to the page
+            document.body.appendChild(forwardButton);
         };
     </script>
 </head>
 <body>
-    <h1>Поделитесь с друзьями:</h1>
+    <h1>Share with your friends:</h1>
 </body>
 </html>
