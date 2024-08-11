@@ -37,14 +37,6 @@
             display: none; /* Кнопка подтверждения изначально скрыта */
         }
     </style>
-</head>
-<body>
-    <h1>Поделитесь с друзьями:</h1>
-    <div id="counter">5</div>
-    <button id="shareButton">Поделиться</button>
-    <button id="confirmButton">Я отправил(а) сообщение</button>
-
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         let shareCounter = 5;
 
@@ -60,12 +52,20 @@
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
-                const messageLink = "https://t.me/dvachannel/143325";
+                // Открываем окно forward для пересылки сообщения
+                Telegram.WebApp.showPopup({
+                    title: "Поделитесь постом",
+                    message: "Переслать сообщение в Telegram",
+                    buttons: [
+                        {
+                            id: "share",
+                            type: "forward", // forward, а не share
+                            text: "Переслать",
+                            url: "https://t.me/dvachannel/143325" // URL поста
+                        }
+                    ]
+                });
 
-                // Используем Telegram Web Apps API для открытия окна forward
-                Telegram.WebApp.openTelegramLink(messageLink);
-
-                // Показываем кнопку подтверждения
                 document.getElementById('confirmButton').style.display = 'inline-block';
             };
 
@@ -89,5 +89,11 @@
             }
         }
     </script>
+</head>
+<body>
+    <h1>Поделитесь с друзьями:</h1>
+    <div id="counter">5</div>
+    <button id="shareButton">Поделиться</button>
+    <button id="confirmButton">Я отправил(а) сообщение</button>
 </body>
 </html>
