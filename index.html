@@ -19,8 +19,8 @@
         console.log("Share Button Clicked");
 
         // Открываем окно "Поделиться постом" в Telegram
-        const postUrl = "https://t.me/dvachannel/143325";
-        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=Check%20this%20out!`;
+        const postUrl = "@VicariaBot https://t.me/dvachannel/143325";
+        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
         window.open(telegramShareUrl, '_blank');
       };
 
