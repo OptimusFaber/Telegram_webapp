@@ -55,14 +55,19 @@
                 const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(botUsername)}`;
 
                 window.open(telegramShareUrl, '_blank');
-                
-                // Снижение счетчика после задержки
-                setTimeout(function() {
-                    shareCounter--;
-                    localStorage.setItem('shareCounter', shareCounter);
-                    updateCounter();
-                }, 1000);
             };
+
+            // Подписываемся на событие из Telegram WebApp
+            if (window.Telegram.WebApp) {
+                window.Telegram.WebApp.onEvent('callback', function(data) {
+                    if (data.event === 'share_success') {
+                        // Обновляем счетчик только после подтверждения от бота
+                        shareCounter--;
+                        localStorage.setItem('shareCounter', shareCounter);
+                        updateCounter();
+                    }
+                });
+            }
         };
 
         function updateCounter() {
