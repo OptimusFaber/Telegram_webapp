@@ -23,7 +23,7 @@
             margin: 20px 0;
         }
 
-        #shareButton {
+        #shareButton, #resetButton {
             background-color: #2a3f54; /* Темно-синий */
             color: #ffffff;
             font-size: 18px;
@@ -31,6 +31,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin: 10px;
         }
 
         #shareButton:disabled {
@@ -49,10 +50,17 @@
                 shareCounter = parseInt(localStorage.getItem('shareCounter'));
             }
 
+            // Если счетчик равен нулю, сбрасываем его и сообщаем пользователю
+            if (shareCounter <= 0) {
+                shareCounter = 5;
+                localStorage.setItem('shareCounter', shareCounter);
+                alert("Счетчик был сброшен. Вы можете начать заново.");
+            }
+
             // Обновляем счетчик
             updateCounter();
 
-            // Обработчик клика по кнопке
+            // Обработчик клика по кнопке "Поделиться"
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
@@ -68,6 +76,14 @@
                     localStorage.setItem('shareCounter', shareCounter);
                     updateCounter();
                 }, 1000); // Задержка в 1 секунду
+            };
+
+            // Обработчик клика по кнопке "Сбросить счетчик"
+            document.getElementById('resetButton').onclick = function() {
+                shareCounter = 5;
+                localStorage.setItem('shareCounter', shareCounter);
+                updateCounter();
+                alert("Счетчик сброшен.");
             };
         };
 
@@ -86,5 +102,6 @@
     <h1>Поделитесь с друзьями:</h1>
     <div id="counter">5</div>
     <button id="shareButton">Поделиться</button>
+    <button id="resetButton">Сбросить счетчик</button>
 </body>
 </html>
