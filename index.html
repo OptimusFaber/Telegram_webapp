@@ -34,6 +34,7 @@
           // На остальных платформах открываем окно "Поделиться"
           const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
           window.open(telegramShareUrl, '_blank');
+          document.getElementById('confirmButton').style.display = 'inline-block';
         }
       };
 
