@@ -38,45 +38,53 @@
             cursor: not-allowed;
         }
     </style>
-</head>
-<body>
-    <h1>Поделитесь с друзьями:</h1>
-    <div id="counter">5</div>
-    <button id="shareButton">Поделиться</button>
-
     <script>
         let shareCounter = 5;
 
         window.onload = function() {
-            if (window.Telegram.WebApp) {
-                // Получаем счетчик, если он уже есть в localStorage
-                if (localStorage.getItem('shareCounter')) {
-                    shareCounter = parseInt(localStorage.getItem('shareCounter'));
-                }
-                
-                updateCounter();
+            console.log("Page Loaded");
 
-                document.getElementById('shareButton').onclick = function() {
-                    const postUrl = "https://t.me/dvachannel/143325";
-                    const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=@YourBot`;
-                    window.open(telegramShareUrl, '_blank');
-
-                    // Уведомляем бота о нажатии на кнопку
-                    setTimeout(function() {
-                        Telegram.WebApp.sendData(JSON.stringify({ action: "share_clicked" }));
-                    }, 1000);
-                };
+            // Проверяем наличие сохраненного значения счетчика в localStorage
+            if (localStorage.getItem('shareCounter')) {
+                shareCounter = parseInt(localStorage.getItem('shareCounter'));
             }
+
+            // Обновляем счетчик
+            updateCounter();
+
+            // Обработчик клика по кнопке
+            document.getElementById('shareButton').onclick = function() {
+                console.log("Share Button Clicked");
+
+                // Открываем окно для выбора чата с готовым сообщением
+                const botUsername = "VicariaBot";
+                const shareText = "This is the message to share";
+                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent("https://t.me/" + botUsername)}&text=${encodeURIComponent(shareText)}`;
+                window.open(telegramShareUrl, '_blank');
+
+                // Уменьшаем счетчик с задержкой
+                setTimeout(function() {
+                    shareCounter--;
+                    localStorage.setItem('shareCounter', shareCounter);
+                    updateCounter();
+                }, 1000); // Задержка в 1 секунду
+            };
         };
 
         function updateCounter() {
             const counterElement = document.getElementById('counter');
             counterElement.textContent = shareCounter;
 
+            // Если счетчик достиг нуля, показываем сообщение
             if (shareCounter <= 0) {
                 document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
             }
         }
     </script>
+</head>
+<body>
+    <h1>Поделитесь с друзьями:</h1>
+    <div id="counter">5</div>
+    <button id="shareButton">Поделиться</button>
 </body>
 </html>
