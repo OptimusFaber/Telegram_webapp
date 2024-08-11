@@ -22,7 +22,7 @@
                 // Открываем окно "Поделиться постом" в Telegram
                 const postUrl = "https://t.me/dvachannel/143325";
                 const messageText = `@VicariaBot ${postUrl}`;
-                const telegramShareUrl = `https://t.me/share/url?text=${encodeURIComponent(messageText)}`;
+                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(messageText)}`;
                 window.open(telegramShareUrl, '_blank');
             };
 
