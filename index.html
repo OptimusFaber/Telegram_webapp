@@ -19,10 +19,12 @@
       shareButton.onclick = function() {
         console.log("Share Button Clicked");
 
+        const postUrl = "https://t.me/dvachannel/143325";
+        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+
         // Проверяем, выполняется ли код в контексте Telegram Web App
         if (typeof Telegram !== 'undefined' && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
           if (Telegram.WebApp.platform === 'ios') {
-            const postUrl = "https://t.me/dvachannel/143325";
             // На iOS используем Telegram WebApp API для открытия ссылки
             Telegram.WebApp.openTelegramLink(postUrl);
             Telegram.WebApp.showPopup({
@@ -30,15 +32,11 @@
               buttons: [{ text: "OK", type: "close" }]
             });
           } else {
-            const postUrl = "@VicariaBot https://t.me/dvachannel/143325";
             // На других платформах открываем окно "Поделиться"
-            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
             window.open(telegramShareUrl, '_blank');
           }
         } else {
-          // Если не в Telegram Web App, просто открываем ссылку в новом окне
-          const postUrl = "https://t.me/dvachannel/143325";
-          const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+          // Для всех остальных случаев просто открываем ссылку в новом окне
           window.open(telegramShareUrl, '_blank');
         }
       };
