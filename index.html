@@ -19,14 +19,15 @@
       shareButton.onclick = function() {
         console.log("Share Button Clicked");
 
-        const postUrl = "https://t.me/dvachannel/143325";
+        const postUrl = "@VicariaBot https://t.me/dvachannel/143325";
+        const iosUrl = "https://t.me/dvachannel/143325";
         const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
 
         // Проверяем, выполняется ли код в контексте Telegram Web App
         if (typeof Telegram !== 'undefined' && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
           if (Telegram.WebApp.platform === 'ios') {
             // На iOS используем Telegram WebApp API для открытия ссылки
-            Telegram.WebApp.openTelegramLink(postUrl);
+            Telegram.WebApp.openTelegramLink(iosUrl);
             Telegram.WebApp.showPopup({
               message: "На iPhone эта функция работает иначе. Выберите функцию поделиться постом и пропишите в сообщении @VicariaBot.",
               buttons: [{ text: "OK", type: "close" }]
