@@ -57,8 +57,8 @@
         const completedMessage = document.getElementById('completedMessage');
 
         forwardButton.addEventListener('click', function() {
-            // Отправляем запрос на пересылку сообщения через бота
-            fetch('/forwardMessage')
+            // Отправка запроса на пересылку сообщения через бот
+            fetch('/forwardMessage', { method: 'POST' })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
