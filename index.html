@@ -47,26 +47,29 @@
 <body>
     <h1>Поделитесь с друзьями:</h1>
     <div id="counter">5</div>
-    <button id="shareButton">Поделиться</button>
+    <button id="forwardButton">Переслать</button>
     <div id="completedMessage" class="completed-message" style="display: none;">Молодцы, вы выполнили условия!</div>
 
     <script>
         let counter = 5;
         const counterElement = document.getElementById('counter');
-        const shareButton = document.getElementById('shareButton');
+        const forwardButton = document.getElementById('forwardButton');
         const completedMessage = document.getElementById('completedMessage');
 
-        shareButton.addEventListener('click', function() {
-            const postUrl = "https://t.me/dvachannel/143325";
-            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-            window.open(telegramShareUrl, '_blank');
+        forwardButton.addEventListener('click', async function() {
+            const chatId = /* ID чата, куда пересылается сообщение */;
+            const messageId = /* ID сообщения, которое нужно переслать */;
 
-            // Simulate that the user shared the post successfully
+            // Вызов API бота для пересылки сообщения
+            await fetch(`/forwardMessage?chatId=${chatId}&messageId=${messageId}`, {
+                method: 'GET'
+            });
+
             counter -= 1;
             counterElement.textContent = counter;
 
             if (counter === 0) {
-                shareButton.style.display = 'none';
+                forwardButton.style.display = 'none';
                 counterElement.style.display = 'none';
                 completedMessage.style.display = 'block';
             }
