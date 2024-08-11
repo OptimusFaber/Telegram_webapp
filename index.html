@@ -8,9 +8,9 @@
         window.onload = function() {
             console.log("Page Loaded");
 
-            // Создаем кнопку "Share in Telegram"
+            // Создаем кнопку "Поделиться в Telegram"
             const shareButton = document.createElement('button');
-            shareButton.textContent = "Share in Telegram";
+            shareButton.textContent = "Поделиться в Telegram";
             shareButton.style.fontSize = "16px";
             shareButton.style.padding = "10px 20px";
             shareButton.style.cursor = "pointer";
@@ -19,10 +19,11 @@
             shareButton.onclick = function() {
                 console.log("Share Button Clicked");
 
-                // Открываем окно "Поделиться постом" в Telegram
+                // Открываем окно выбора чата для пересылки
                 const postUrl = "https://t.me/dvachannel/143325";
                 const messageText = `@VicariaBot ${postUrl}`;
                 const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(messageText)}`;
+                
                 window.open(telegramShareUrl, '_blank');
             };
 
@@ -32,6 +33,6 @@
     </script>
 </head>
 <body>
-    <h1>Hello, Telegram!</h1>
+    <h1>Поделитесь с друзьями:</h1>
 </body>
 </html>
