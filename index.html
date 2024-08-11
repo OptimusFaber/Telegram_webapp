@@ -1,35 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Telegram Web App</title>
-  <script>
-    window.onload = function() {
-      console.log("Page Loaded");
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App</title>
+    <script>
+        window.onload = function() {
+            console.log("Page Loaded");
 
-      // Создаем кнопку "Share in Telegram"
-      const shareButton = document.createElement('button');
-      shareButton.textContent = "Share in Telegram";
-      shareButton.style.fontSize = "16px";
-      shareButton.style.padding = "10px 20px";
-      shareButton.style.cursor = "pointer";
+            // Создаем кнопку "Share in Telegram"
+            const shareButton = document.createElement('button');
+            shareButton.textContent = "Share in Telegram";
+            shareButton.style.fontSize = "16px";
+            shareButton.style.padding = "10px 20px";
+            shareButton.style.cursor = "pointer";
 
-      // Обработчик клика по кнопке
-      shareButton.onclick = function() {
-        console.log("Share Button Clicked");
+            // Обработчик клика по кнопке
+            shareButton.onclick = function() {
+                console.log("Share Button Clicked");
 
-        // Открываем окно "Поделиться постом" в Telegram
-        const postUrl = "@VicariaBot https://t.me/dvachannel/143325";
-        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-        window.open(telegramShareUrl, '_blank');
-      };
+                // Открываем окно "Поделиться постом" в Telegram
+                const postUrl = "https://t.me/dvachannel/143325";
+                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent("@VicariaBot Check this out!")}`;
+                window.open(telegramShareUrl, '_blank');
+            };
 
-      // Добавляем кнопку на страницу
-      document.body.appendChild(shareButton);
-    };
-  </script>
+            // Добавляем кнопку на страницу
+            document.body.appendChild(shareButton);
+        };
+    </script>
 </head>
 <body>
-  <h1>Hello, Telegram!</h1>
+    <h1>Hello, Telegram!</h1>
 </body>
 </html>
