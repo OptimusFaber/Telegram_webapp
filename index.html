@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e9edf0;
-            color: #2a3f54;
+            background-color: #e9edf0; /* Светло-серый */
+            color: #2a3f54; /* Темно-синий */
             text-align: center;
             padding: 50px;
             margin: 0;
@@ -24,7 +24,7 @@
         }
 
         #shareButton {
-            background-color: #2a3f54;
+            background-color: #2a3f54; /* Темно-синий */
             color: #ffffff;
             font-size: 18px;
             padding: 15px 30px;
@@ -38,35 +38,34 @@
             cursor: not-allowed;
         }
     </style>
+</head>
+<body>
+    <h1>Поделитесь с друзьями:</h1>
+    <div id="counter">5</div>
+    <button id="shareButton">Поделиться</button>
+
     <script>
         let shareCounter = 5;
 
         window.onload = function() {
-            if (localStorage.getItem('shareCounter')) {
-                shareCounter = parseInt(localStorage.getItem('shareCounter'));
-            }
-
-            updateCounter();
-
-            document.getElementById('shareButton').onclick = function() {
-                const botUsername = '@VicariaBot';
-                const messageText = 'Check this out!';
-                const postUrl = "https://t.me/dvachannel/143325";
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(botUsername)}`;
-
-                window.open(telegramShareUrl, '_blank');
-            };
-
-            // Подписываемся на событие из Telegram WebApp
             if (window.Telegram.WebApp) {
-                window.Telegram.WebApp.onEvent('callback', function(data) {
-                    if (data.event === 'share_success') {
-                        // Обновляем счетчик только после подтверждения от бота
-                        shareCounter--;
-                        localStorage.setItem('shareCounter', shareCounter);
-                        updateCounter();
-                    }
-                });
+                // Получаем счетчик, если он уже есть в localStorage
+                if (localStorage.getItem('shareCounter')) {
+                    shareCounter = parseInt(localStorage.getItem('shareCounter'));
+                }
+                
+                updateCounter();
+
+                document.getElementById('shareButton').onclick = function() {
+                    const postUrl = "https://t.me/dvachannel/143325";
+                    const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=@YourBot`;
+                    window.open(telegramShareUrl, '_blank');
+
+                    // Уведомляем бота о нажатии на кнопку
+                    setTimeout(function() {
+                        Telegram.WebApp.sendData(JSON.stringify({ action: "share_clicked" }));
+                    }, 1000);
+                };
             }
         };
 
@@ -79,10 +78,5 @@
             }
         }
     </script>
-</head>
-<body>
-    <h1>Поделитесь с друзьями:</h1>
-    <div id="counter">5</div>
-    <button id="shareButton">Поделиться</button>
 </body>
 </html>
