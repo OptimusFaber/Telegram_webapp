@@ -1,106 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e9edf0; /* Светло-серый */
-            color: #2a3f54; /* Темно-синий */
-            text-align: center;
-            padding: 50px;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <title>Telegram Web App</title>
+  <script>
+    window.onload = function() {
+      console.log("Page Loaded");
 
-        h1 {
-            margin-bottom: 20px;
-        }
+      // Создаем кнопку "Share in Telegram"
+      const shareButton = document.createElement('button');
+      shareButton.textContent = "Share in Telegram";
+      shareButton.style.fontSize = "16px";
+      shareButton.style.padding = "10px 20px";
+      shareButton.style.cursor = "pointer";
 
-        #counter {
-            font-size: 48px;
-            margin: 20px 0;
-        }
+      // Обработчик клика по кнопке
+      shareButton.onclick = function() {
+        console.log("Share Button Clicked");
 
-        #shareButton, #resetButton {
-            background-color: #2a3f54; /* Темно-синий */
-            color: #ffffff;
-            font-size: 18px;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
-        }
+        // Открываем окно "Поделиться постом" в Telegram
+        const postUrl = "https://t.me/c/2162847390/30";
+        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+        window.open(telegramShareUrl, '_blank');
+      };
 
-        #shareButton:disabled {
-            background-color: #7a8b99;
-            cursor: not-allowed;
-        }
-    </style>
-    <script>
-        let shareCounter = 5;
-
-        window.onload = function() {
-            console.log("Page Loaded");
-
-            // Проверяем наличие сохраненного значения счетчика в localStorage
-            if (localStorage.getItem('shareCounter')) {
-                shareCounter = parseInt(localStorage.getItem('shareCounter'));
-            }
-
-            // Если счетчик равен нулю, сбрасываем его и сообщаем пользователю
-            if (shareCounter <= 0) {
-                shareCounter = 5;
-                localStorage.setItem('shareCounter', shareCounter);
-                alert("Счетчик был сброшен. Вы можете начать заново.");
-            }
-
-            // Обновляем счетчик
-            updateCounter();
-
-            // Обработчик клика по кнопке "Поделиться"
-            document.getElementById('shareButton').onclick = function() {
-                console.log("Share Button Clicked");
-
-                // Открываем окно "Поделиться постом" в Telegram
-                const postUrl = "https://t.me/dvachannel/143325";
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-                window.open(telegramShareUrl, '_blank');
-
-                // Уменьшаем счетчик с задержкой
-                setTimeout(function() {
-                    shareCounter--;
-                    localStorage.setItem('shareCounter', shareCounter);
-                    updateCounter();
-                }, 1000); // Задержка в 1 секунду
-            };
-
-            // Обработчик клика по кнопке "Сбросить счетчик"
-            document.getElementById('resetButton').onclick = function() {
-                shareCounter = 5;
-                localStorage.setItem('shareCounter', shareCounter);
-                updateCounter();
-                alert("Счетчик сброшен.");
-            };
-        };
-
-        function updateCounter() {
-            const counterElement = document.getElementById('counter');
-            counterElement.textContent = shareCounter;
-
-            // Если счетчик достиг нуля, показываем сообщение
-            if (shareCounter <= 0) {
-                document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
-            }
-        }
-    </script>
+      // Добавляем кнопку на страницу
+      document.body.appendChild(shareButton);
+    };
+  </script>
 </head>
 <body>
-    <h1>Поделитесь с друзьями:</h1>
-    <div id="counter">5</div>
-    <button id="shareButton">Поделиться</button>
-    <button id="resetButton">Сбросить счетчик</button>
+  <h1>Hello, Telegram!</h1>
 </body>
 </html>
