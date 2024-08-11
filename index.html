@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Web App</title>
     <style>
+        /* Добавим CSS для оформления, как и раньше */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e9edf0; /* Светло-серый */
-            color: #2a3f54; /* Темно-синий */
+            background-color: #e9edf0;
+            color: #2a3f54;
             text-align: center;
             padding: 50px;
             margin: 0;
@@ -23,8 +24,8 @@
             margin: 20px 0;
         }
 
-        #shareButton {
-            background-color: #2a3f54; /* Темно-синий */
+        #shareButton, #confirmButton {
+            background-color: #2a3f54;
             color: #ffffff;
             font-size: 18px;
             padding: 15px 30px;
@@ -33,9 +34,8 @@
             cursor: pointer;
         }
 
-        #shareButton:disabled {
-            background-color: #7a8b99;
-            cursor: not-allowed;
+        #confirmButton {
+            display: none; /* Кнопка подтверждения изначально скрыта */
         }
     </style>
     <script>
@@ -44,10 +44,15 @@
         window.onload = function() {
             console.log("Page Loaded");
 
+            // Проверяем наличие сохраненного значения счетчика в localStorage
+            if (localStorage.getItem('shareCounter')) {
+                shareCounter = parseInt(localStorage.getItem('shareCounter'));
+            }
+
             // Обновляем счетчик
             updateCounter();
 
-            // Обработчик клика по кнопке
+            // Обработчик клика по кнопке "Поделиться"
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
@@ -56,9 +61,21 @@
                 const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
                 window.open(telegramShareUrl, '_blank');
 
+                // Показываем кнопку подтверждения
+                document.getElementById('confirmButton').style.display = 'inline-block';
+            };
+
+            // Обработчик клика по кнопке "Подтвердить"
+            document.getElementById('confirmButton').onclick = function() {
+                console.log("Confirm Button Clicked");
+
                 // Уменьшаем счетчик
                 shareCounter--;
+                localStorage.setItem('shareCounter', shareCounter);
                 updateCounter();
+
+                // Скрываем кнопку подтверждения
+                this.style.display = 'none';
             };
         };
 
@@ -77,5 +94,6 @@
     <h1>Поделитесь с друзьями:</h1>
     <div id="counter">5</div>
     <button id="shareButton">Поделиться</button>
+    <button id="confirmButton">Я отправил(а) сообщение</button>
 </body>
 </html>
