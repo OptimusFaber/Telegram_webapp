@@ -17,13 +17,22 @@
       // Обработчик клика по кнопке
       shareButton.onclick = function() {
         console.log("Share Button Clicked");
-
-        // Открываем окно "Поделиться постом" в Telegram
         const postUrl = "@VicariaBot https://t.me/dvachannel/143325";
-        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-        // window.open(telegramShareUrl, '_blank');
-        window.location.href = telegramShareUrl;
-        // Telegram.WebApp.openTelegramLink("https://t.me/share/url?url=https://t.me/dvachannel/143325");
+        if (window.Telegram.WebApp.platform === 'ios') {
+            // Если это iOS, используем другой подход
+            Telegram.WebApp.showPopup({
+                message: "На iPhone эта функция работает иначе. Выберите функцию поделиться постом и пропишите в сообщении @VicariaBot.",
+                buttons: [{text: "OK", type: "close"}]
+            });
+            Telegram.WebApp.openTelegramLink(postUrl);
+        } else {
+          // Открываем окно "Поделиться постом" в Telegram
+          const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+          window.open(telegramShareUrl, '_blank');
+
+          // window.location.href = telegramShareUrl;
+          // Telegram.WebApp.openTelegramLink("https://t.me/share/url?url=https://t.me/dvachannel/143325");
+        }
       };
 
       // Добавляем кнопку на страницу
