@@ -3,27 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Telegram Web App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     window.onload = function() {
       console.log("Page Loaded");
 
-      // Создаем кнопку "Share in Telegram"
       const shareButton = document.createElement('button');
       shareButton.textContent = "Share in Telegram";
       shareButton.style.fontSize = "16px";
       shareButton.style.padding = "10px 20px";
       shareButton.style.cursor = "pointer";
 
-      // Обработчик клика по кнопке
       shareButton.onclick = function() {
         console.log("Share Button Clicked");
 
-        // Открываем окно "Поделиться постом" в Telegram
-        const telegramShareUrl = `https://t.me/share/url?url=https://t.me/dvachannel/143325`;
+        const postUrl = "https://t.me/dvachannel/143325";
+        const mention = "@VicariaBot";
+        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(mention + " " + postUrl)}`;
         window.open(telegramShareUrl, '_blank');
       };
 
-      // Добавляем кнопку на страницу
       document.body.appendChild(shareButton);
     };
   </script>
