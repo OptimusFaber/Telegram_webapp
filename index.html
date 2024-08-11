@@ -64,10 +64,9 @@
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
-                // Открываем окно для выбора чата с готовым сообщением
-                const botUsername = "VicariaBot";
-                const shareText = "This is the message to share";
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent("https://t.me/" + botUsername)}&text=${encodeURIComponent(shareText)}`;
+                // Открываем окно "Поделиться постом" в Telegram
+                const postUrl = "https://t.me/dvachannel/143325";
+                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
                 window.open(telegramShareUrl, '_blank');
 
                 // Уменьшаем счетчик с задержкой
