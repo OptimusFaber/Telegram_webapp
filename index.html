@@ -1,98 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e9edf0;
-            color: #2a3f54;
-            text-align: center;
-            padding: 50px;
-            margin: 0;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        #counter {
-            font-size: 48px;
-            margin: 20px 0;
-        }
-
-        #shareButton, #confirmButton {
-            background-color: #2a3f54;
-            color: #ffffff;
-            font-size: 18px;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #confirmButton {
-            display: none; /* Кнопка подтверждения изначально скрыта */
-        }
-    </style>
-    <script>
-        let shareCounter = 5;
-
-        window.onload = function() {
-            console.log("Page Loaded");
-
-            if (localStorage.getItem('shareCounter')) {
-                shareCounter = parseInt(localStorage.getItem('shareCounter'));
-            }
-
-            updateCounter();
-
-            document.getElementById('shareButton').onclick = function() {
-                console.log("Share Button Clicked");
-
-                // Определяем устройство
-                const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-                const postUrl = "https://t.me/dvachannel/143325";
-
-                if (isIOS) {
-                    // Открываем стандартное окно "Поделиться" на iOS
-                    window.location.href = `tg://msg_url?url=${encodeURIComponent(postUrl)}`;
-                } else {
-                    // Открываем окно forward для пересылки сообщения на других устройствах
-                    const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-                    window.open(telegramShareUrl, '_blank');
-                }
-
-                document.getElementById('confirmButton').style.display = 'inline-block';
-            };
-
-            document.getElementById('confirmButton').onclick = function() {
-                console.log("Confirm Button Clicked");
-
-                shareCounter--;
-                localStorage.setItem('shareCounter', shareCounter);
-                updateCounter();
-
-                this.style.display = 'none';
-            };
-        };
-
-        function updateCounter() {
-            const counterElement = document.getElementById('counter');
-            counterElement.textContent = shareCounter;
-
-            if (shareCounter <= 0) {
-                document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
-            }
-        }
-    </script>
+    <title>Share Button</title>
 </head>
 <body>
-    <h1>Поделитесь с друзьями:</h1>
-    <div id="counter">5</div>
-    <button id="shareButton">Поделиться</button>
-    <button id="confirmButton">Я отправил(а) сообщение</button>
+    <button onclick="share()">Поделиться</button>
+
+    <script>
+        function share() {
+            // Telegram Web App API для открытия окна пересылки сообщений
+            Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=YOUR_POST_URL');
+        }
+    </script>
 </body>
 </html>
