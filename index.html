@@ -52,19 +52,18 @@
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
-                // Открываем окно forward для пересылки сообщения
-                Telegram.WebApp.showPopup({
-                    title: "Поделитесь постом",
-                    message: "Переслать сообщение в Telegram",
-                    buttons: [
-                        {
-                            id: "share",
-                            type: "forward", // forward, а не share
-                            text: "Переслать",
-                            url: "https://t.me/dvachannel/143325" // URL поста
-                        }
-                    ]
-                });
+                // Определяем устройство
+                const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const postUrl = "https://t.me/dvachannel/143325";
+
+                if (isIOS) {
+                    // Открываем стандартное окно "Поделиться" на iOS
+                    window.location.href = `tg://msg_url?url=${encodeURIComponent(postUrl)}`;
+                } else {
+                    // Открываем окно forward для пересылки сообщения на других устройствах
+                    const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+                    window.open(telegramShareUrl, '_blank');
+                }
 
                 document.getElementById('confirmButton').style.display = 'inline-block';
             };
