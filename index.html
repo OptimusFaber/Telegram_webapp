@@ -23,7 +23,7 @@
             margin: 20px 0;
         }
 
-        #shareButton {
+        #forwardButton {
             background-color: #2a3f54; /* Темно-синий */
             color: #ffffff;
             font-size: 18px;
@@ -33,13 +33,13 @@
             cursor: pointer;
         }
 
-        #shareButton:disabled {
+        #forwardButton:disabled {
             background-color: #7a8b99;
             cursor: not-allowed;
         }
     </style>
     <script>
-        let shareCounter = 5;
+        let forwardCounter = 5;
 
         window.onload = function() {
             console.log("Page Loaded");
@@ -48,17 +48,17 @@
             updateCounter();
 
             // Обработчик клика по кнопке
-            document.getElementById('shareButton').onclick = function() {
-                console.log("Share Button Clicked");
+            document.getElementById('forwardButton').onclick = function() {
+                console.log("Forward Button Clicked");
 
-                // Открываем окно "Поделиться постом" в Telegram
+                // Открываем окно "Переслать сообщение" в Telegram
                 const postUrl = "https://t.me/dvachannel/143325";
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-                window.open(telegramShareUrl, '_blank');
+                const telegramForwardUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+                window.open(telegramForwardUrl, '_blank');
 
                 // Уменьшаем счетчик с небольшой задержкой
                 setTimeout(() => {
-                    shareCounter--;
+                    forwardCounter--;
                     updateCounter();
                 }, 1000);
             };
@@ -66,18 +66,18 @@
 
         function updateCounter() {
             const counterElement = document.getElementById('counter');
-            counterElement.textContent = shareCounter;
+            counterElement.textContent = forwardCounter;
 
             // Если счетчик достиг нуля, показываем сообщение
-            if (shareCounter <= 0) {
+            if (forwardCounter <= 0) {
                 document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
             }
         }
     </script>
 </head>
 <body>
-    <h1>Поделитесь с друзьями:</h1>
+    <h1>Перешлите друзьям:</h1>
     <div id="counter">5</div>
-    <button id="shareButton">Поделиться</button>
+    <button id="forwardButton">Переслать</button>
 </body>
 </html>
