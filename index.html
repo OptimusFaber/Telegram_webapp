@@ -9,7 +9,9 @@
     <script>
         function share() {
             // Telegram Web App API для открытия окна пересылки сообщений
-            Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=YOUR_POST_URL');
+            const postUrl = "https://t.me/dvachannel/143325";
+            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+            Telegram.WebApp.openTelegramLink(telegramShareUrl);
         }
     </script>
 </body>
