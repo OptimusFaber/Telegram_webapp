@@ -60,10 +60,10 @@
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
-                const postUrl = "https://t.me/dvachannel/143325";
-                
-                // Открываем ссылку через Telegram Web Apps API
-                Telegram.WebApp.openTelegramLink(postUrl);
+                const messageLink = "https://t.me/dvachannel/143325";
+
+                // Используем Telegram Web Apps API для открытия окна forward
+                Telegram.WebApp.openTelegramLink(messageLink);
 
                 // Показываем кнопку подтверждения
                 document.getElementById('confirmButton').style.display = 'inline-block';
