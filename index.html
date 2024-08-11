@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e9edf0; /* Светло-серый */
-            color: #2a3f54; /* Темно-синий */
+            background-color: #e9edf0;
+            color: #2a3f54;
             text-align: center;
             padding: 50px;
             margin: 0;
@@ -23,8 +23,8 @@
             margin: 20px 0;
         }
 
-        #shareButton {
-            background-color: #2a3f54; /* Темно-синий */
+        #shareButton, #confirmButton {
+            background-color: #2a3f54;
             color: #ffffff;
             font-size: 18px;
             padding: 15px 30px;
@@ -33,34 +33,50 @@
             cursor: pointer;
         }
 
-        #shareButton:disabled {
-            background-color: #7a8b99;
-            cursor: not-allowed;
+        #confirmButton {
+            display: none; /* Кнопка подтверждения изначально скрыта */
         }
     </style>
+</head>
+<body>
+    <h1>Поделитесь с друзьями:</h1>
+    <div id="counter">5</div>
+    <button id="shareButton">Поделиться</button>
+    <button id="confirmButton">Я отправил(а) сообщение</button>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         let shareCounter = 5;
 
         window.onload = function() {
             console.log("Page Loaded");
 
-            // Обновляем счетчик
+            if (localStorage.getItem('shareCounter')) {
+                shareCounter = parseInt(localStorage.getItem('shareCounter'));
+            }
+
             updateCounter();
 
-            // Обработчик клика по кнопке
             document.getElementById('shareButton').onclick = function() {
                 console.log("Share Button Clicked");
 
-                // Открываем окно "Поделиться постом" в Telegram
                 const postUrl = "https://t.me/dvachannel/143325";
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-                window.open(telegramShareUrl, '_blank');
+                
+                // Открываем ссылку через Telegram Web Apps API
+                Telegram.WebApp.openTelegramLink(postUrl);
 
-                // Задержка перед уменьшением счетчика, чтобы дать время пользователю вернуться
-                setTimeout(function() {
-                    shareCounter--;
-                    updateCounter();
-                }, 3000); // Задержка в 3 секунды
+                // Показываем кнопку подтверждения
+                document.getElementById('confirmButton').style.display = 'inline-block';
+            };
+
+            document.getElementById('confirmButton').onclick = function() {
+                console.log("Confirm Button Clicked");
+
+                shareCounter--;
+                localStorage.setItem('shareCounter', shareCounter);
+                updateCounter();
+
+                this.style.display = 'none';
             };
         };
 
@@ -68,16 +84,10 @@
             const counterElement = document.getElementById('counter');
             counterElement.textContent = shareCounter;
 
-            // Если счетчик достиг нуля, показываем сообщение
             if (shareCounter <= 0) {
                 document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
             }
         }
     </script>
-</head>
-<body>
-    <h1>Поделитесь с друзьями:</h1>
-    <div id="counter">5</div>
-    <button id="shareButton">Поделиться</button>
 </body>
 </html>
