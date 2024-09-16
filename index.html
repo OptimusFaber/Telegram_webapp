@@ -1,43 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e9edf0;
-            color: #2a3f54;
-            text-align: center;
-            padding: 50px;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <title>Telegram Web App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script> <!-- Подключение Telegram Web App API -->
+  <script>
+    window.onload = function() {
+      console.log("Page Loaded");
 
-        #shareButton {
-            background-color: #2a3f54;
-            color: #ffffff;
-            font-size: 18px;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-    <script>
-        // Telegram WebApp API Ready
-        window.Telegram.WebApp.ready();
+      // Создаем кнопку "Share in Telegram"
+      const shareButton = document.createElement('button');
+      shareButton.textContent = "Share in Telegram";
+      shareButton.style.fontSize = "16px";
+      shareButton.style.padding = "10px 20px";
+      shareButton.style.cursor = "pointer";
 
-        window.onload = function() {
-            // Кнопка "Поделиться"
-            document.getElementById('shareButton').onclick = function() {
-                // Используем WebApp.switchInlineQuery для вызова inline-запроса
-                Telegram.WebApp.switchInlineQuery('@VicariBot https://t.me/dvachannel/143325', ['group', 'supergroup', 'channel']);
-            };
-        };
-    </script>
+      // Обработчик клика по кнопке
+      shareButton.onclick = function() {
+        console.log("Share Button Clicked");
+
+        // Проверяем, доступен ли объект Telegram.WebApp
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+          if (Telegram.WebApp.platform === 'ios') {
+            const postUrl = "https://t.me/dvachannel/143325";
+            // На iOS используем Telegram WebApp API для открытия ссылки
+            // Telegram.WebApp.openTelegramLink(postUrl);
+            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+            // window.open(telegramShareUrl, '_blank');
+            Telegram.WebApp.openTelegramLink(telegramShareUrl);
+            
+            Telegram.WebApp.showPopup({
+              message: "На iPhone эта функция работает иначе. Выберите функцию поделиться постом и пропишите в сообщении @VicariaBot.",
+              buttons: [{ text: "OK", type: "close" }]
+            });
+          } else {
+            const postUrl = "https://t.me/dvachannel/143325";
+            // На остальных платформах открываем окно "Поделиться"
+            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+            // window.open(telegramShareUrl, '_blank');
+            Telegram.WebApp.openTelegramLink(telegramShareUrl);
+          }
+        } else {
+            const postUrl = "https://t.me/dvachannel/143325";
+            // На остальных платформах открываем окно "Поделиться"
+            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+            // window.open(telegramShareUrl, '_blank');
+            Telegram.WebApp.openTelegramLink(telegramShareUrl);
+        }
+      };
+
+      // Добавляем кнопку на страницу
+      document.body.appendChild(shareButton);
+    };
+  </script>
 </head>
 <body>
-    <button id="shareButton">Поделиться</button>
+  <h1>Hello, Telegram!</h1>
 </body>
 </html>
