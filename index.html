@@ -1,60 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Telegram Web App</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script> <!-- Подключение Telegram Web App API -->
-  <script>
-    window.onload = function() {
-      console.log("Page Loaded");
-
-      // Создаем кнопку "Share in Telegram"
-      const shareButton = document.createElement('button');
-      shareButton.textContent = "Share in Telegram";
-      shareButton.style.fontSize = "16px";
-      shareButton.style.padding = "10px 20px";
-      shareButton.style.cursor = "pointer";
-
-      // Обработчик клика по кнопке
-      shareButton.onclick = function() {
-        console.log("Share Button Clicked");
-
-        // Проверяем, доступен ли объект Telegram.WebApp
-        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-          if (Telegram.WebApp.platform === 'ios') {
-            const postUrl = "https://t.me/dvachannel/143325";
-            // На iOS используем Telegram WebApp API для открытия ссылки
-            // Telegram.WebApp.openTelegramLink(postUrl);
-            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-            // window.open(telegramShareUrl, '_blank');
-            Telegram.WebApp.openTelegramLink(telegramShareUrl);
-            
-            Telegram.WebApp.showPopup({
-              message: "На iPhone эта функция работает иначе. Выберите функцию поделиться постом и пропишите в сообщении @VicariaBot.",
-              buttons: [{ text: "OK", type: "close" }]
-            });
-          } else {
-            const postUrl = "https://t.me/dvachannel/143325";
-            // На остальных платформах открываем окно "Поделиться"
-            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-            // window.open(telegramShareUrl, '_blank');
-            Telegram.WebApp.openTelegramLink(telegramShareUrl);
-          }
-        } else {
-            const postUrl = "https://t.me/dvachannel/143325";
-            // На остальных платформах открываем окно "Поделиться"
-            const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
-            // window.open(telegramShareUrl, '_blank');
-            Telegram.WebApp.openTelegramLink(telegramShareUrl);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9edf0;
+            color: #2a3f54;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
         }
-      };
 
-      // Добавляем кнопку на страницу
-      document.body.appendChild(shareButton);
-    };
-  </script>
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #counter {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+
+        #shareButton {
+            background-color: #2a3f54;
+            color: #ffffff;
+            font-size: 18px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #shareButton:disabled {
+            background-color: #7a8b99;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        let shareCounter = 5;
+
+        window.onload = function() {
+            if (localStorage.getItem('shareCounter')) {
+                shareCounter = parseInt(localStorage.getItem('shareCounter'));
+            }
+
+            updateCounter();
+
+            document.getElementById('shareButton').onclick = function() {
+                const botUsername = '@VicariaBot';
+                const messageText = 'Check this out!';
+                const postUrl = "https://t.me/dvachannel/143325";
+                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(botUsername)}`;
+
+                window.open(telegramShareUrl, '_blank');
+                
+                // Снижение счетчика после задержки
+                setTimeout(function() {
+                    shareCounter--;
+                    localStorage.setItem('shareCounter', shareCounter);
+                    updateCounter();
+                }, 1000);
+            };
+        };
+
+        function updateCounter() {
+            const counterElement = document.getElementById('counter');
+            counterElement.textContent = shareCounter;
+
+            if (shareCounter <= 0) {
+                document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
+            }
+        }
+    </script>
 </head>
 <body>
-  <h1>Hello, Telegram!</h1>
+    <h1>Поделитесь с друзьями:</h1>
+    <div id="counter">5</div>
+    <button id="shareButton">Поделиться</button>
 </body>
 </html>
