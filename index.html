@@ -25,12 +25,14 @@
         }
     </style>
     <script>
-        window.Telegram.WebApp.ready(); // Убедитесь, что WebApp готов
+        // Telegram WebApp API Ready
+        window.Telegram.WebApp.ready();
 
         window.onload = function() {
+            // Кнопка "Поделиться"
             document.getElementById('shareButton').onclick = function() {
-                // При нажатии на кнопку вызываем switch_inline_query через Telegram Web App
-                Telegram.WebApp.openLink(`https://t.me/${Telegram.WebApp.initDataUnsafe.user.username}?start=share`);
+                // Отправка запроса через WebAppData
+                Telegram.WebApp.sendData("share"); // Отправляем команду на сервер
             };
         };
     </script>
