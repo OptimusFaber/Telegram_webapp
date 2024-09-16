@@ -18,11 +18,6 @@
             margin-bottom: 20px;
         }
 
-        #counter {
-            font-size: 48px;
-            margin: 20px 0;
-        }
-
         #shareButton {
             background-color: #2a3f54;
             color: #ffffff;
@@ -32,52 +27,20 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
-        #shareButton:disabled {
-            background-color: #7a8b99;
-            cursor: not-allowed;
-        }
     </style>
-    <script>
-        let shareCounter = 5;
-
-        window.onload = function() {
-            if (localStorage.getItem('shareCounter')) {
-                shareCounter = parseInt(localStorage.getItem('shareCounter'));
-            }
-
-            updateCounter();
-
-            document.getElementById('shareButton').onclick = function() {
-                const botUsername = '@VicariaBot';
-                const messageText = 'Check this out!';
-                const postUrl = "https://t.me/dvachannel/143325";
-                const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(botUsername)}`;
-
-                window.open(telegramShareUrl, '_blank');
-                
-                // Снижение счетчика после задержки
-                setTimeout(function() {
-                    shareCounter--;
-                    localStorage.setItem('shareCounter', shareCounter);
-                    updateCounter();
-                }, 1000);
-            };
-        };
-
-        function updateCounter() {
-            const counterElement = document.getElementById('counter');
-            counterElement.textContent = shareCounter;
-
-            if (shareCounter <= 0) {
-                document.body.innerHTML = '<h1>Молодцы, вы выполнили условия!</h1>';
-            }
-        }
-    </script>
 </head>
 <body>
     <h1>Поделитесь с друзьями:</h1>
-    <div id="counter">5</div>
     <button id="shareButton">Поделиться</button>
+    <script>
+        window.onload = function() {
+            document.getElementById('shareButton').onclick = function() {
+                // Открываем встроенный режим с ссылкой
+                const botUsername = '@VicariaBot';
+                const inlineUrl = `https://t.me/${botUsername}?start=share`;
+                window.open(inlineUrl, '_blank');
+            };
+        };
+    </script>
 </body>
 </html>
