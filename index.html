@@ -14,10 +14,6 @@
             margin: 0;
         }
 
-        h1 {
-            margin-bottom: 20px;
-        }
-
         #shareButton {
             background-color: #2a3f54;
             color: #ffffff;
@@ -28,19 +24,18 @@
             cursor: pointer;
         }
     </style>
-</head>
-<body>
-    <h1>Поделитесь с друзьями:</h1>
-    <button id="shareButton">Поделиться</button>
     <script>
+        window.Telegram.WebApp.ready(); // Убедитесь, что WebApp готов
+
         window.onload = function() {
             document.getElementById('shareButton').onclick = function() {
-                // Открываем встроенный режим с ссылкой
-                const botUsername = '@VicariaBot';
-                const inlineUrl = `https://t.me/${botUsername}?start=share`;
-                window.open(inlineUrl, '_blank');
+                // При нажатии на кнопку вызываем switch_inline_query через Telegram Web App
+                Telegram.WebApp.openLink(`https://t.me/${Telegram.WebApp.initDataUnsafe.user.username}?start=share`);
             };
         };
     </script>
+</head>
+<body>
+    <button id="shareButton">Поделиться</button>
 </body>
 </html>
