@@ -1,20 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Close Page</title>
-    <script>
-        function closeWindow() {
-            if (window.opener) {
-                window.close();
-            } else {
-                alert("Невозможно закрыть окно автоматически. Пожалуйста, закройте его вручную.");
-            }
+  <meta charset="UTF-8">
+  <title>Telegram Web App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script> <!-- Подключение Telegram Web App API -->
+  <script>
+    window.onload = function() {
+      console.log("Page Loaded");
+
+      // Создаем кнопку "Share in Telegram"
+      const shareButton = document.createElement('button');
+      shareButton.textContent = "Share in Telegram";
+      shareButton.style.fontSize = "16px";
+      shareButton.style.padding = "10px 20px";
+      shareButton.style.cursor = "pointer";
+
+      // Обработчик клика по кнопке
+      shareButton.onclick = function() {
+        console.log("Share Button Clicked");
+
+        // Проверяем, доступен ли объект Telegram.WebApp
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+          const postUrl = "https://t.me/dvachannel/143325";
+          const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(postUrl)}`;
+          Telegram.WebApp.openTelegramLink(telegramShareUrl);
         }
-    </script>
+      };
+
+      // Добавляем кнопку на страницу
+      document.body.appendChild(shareButton);
+
+      // Создаем кнопку "Show User ID"
+      const showIdButton = document.createElement('button');
+      showIdButton.textContent = "Show User ID";
+      showIdButton.style.display = "block";
+      showIdButton.style.fontSize = "16px";
+      showIdButton.style.padding = "10px 20px";
+      showIdButton.style.marginTop = "20px";
+      showIdButton.style.cursor = "pointer";
+
+      // Создаем div для отображения User ID
+      const userIdDiv = document.createElement('div');
+      userIdDiv.style.marginTop = "10px";
+      userIdDiv.style.fontSize = "14px";
+      userIdDiv.style.color = "#333";
+
+      // Обработчик клика для отображения User ID
+      showIdButton.onclick = function() {
+        const userId = Telegram.WebApp.initDataUnsafe.user?.id || 'Unknown';
+        userIdDiv.textContent = `User ID: ${userId}`;
+      };
+
+      // Добавляем кнопку и div на страницу
+      document.body.appendChild(showIdButton);
+      document.body.appendChild(userIdDiv);
+
+      // Создаем кнопку "Close App"
+      const closeAppButton = document.createElement('button');
+      closeAppButton.textContent = "Close App";
+      closeAppButton.style.display = "block";
+      closeAppButton.style.fontSize = "16px";
+      closeAppButton.style.padding = "10px 20px";
+      closeAppButton.style.marginTop = "20px";
+      closeAppButton.style.cursor = "pointer";
+
+      // Обработчик клика для закрытия Web App
+      closeAppButton.onclick = function() {
+        console.log("Close App Button Clicked");
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+          Telegram.WebApp.close();
+        }
+      };
+
+      // Добавляем кнопку на страницу
+      document.body.appendChild(closeAppButton);
+    };
+  </script>
 </head>
-<body style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0;">
-    <button onclick="closeWindow()" style="padding: 10px 20px; font-size: 18px;">Закрыть страницу</button>
+<body>
+  <h1>Hello, Telegram!</h1>
 </body>
 </html>
