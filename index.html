@@ -6,7 +6,11 @@
     <title>Close Page</title>
     <script>
         function closeWindow() {
-            window.close();
+            if (window.opener) {
+                window.close();
+            } else {
+                alert("Невозможно закрыть окно автоматически. Пожалуйста, закройте его вручную.");
+            }
         }
     </script>
 </head>
