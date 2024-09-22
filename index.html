@@ -54,6 +54,26 @@
       // Добавляем кнопку и div на страницу
       document.body.appendChild(showIdButton);
       document.body.appendChild(userIdDiv);
+
+      // Создаем кнопку "Close App"
+      const closeAppButton = document.createElement('button');
+      closeAppButton.textContent = "Close App";
+      closeAppButton.style.display = "block";
+      closeAppButton.style.fontSize = "16px";
+      closeAppButton.style.padding = "10px 20px";
+      closeAppButton.style.marginTop = "20px";
+      closeAppButton.style.cursor = "pointer";
+
+      // Обработчик клика для закрытия Web App
+      closeAppButton.onclick = function() {
+        console.log("Close App Button Clicked");
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+          Telegram.WebApp.close();
+        }
+      };
+
+      // Добавляем кнопку на страницу
+      document.body.appendChild(closeAppButton);
     };
   </script>
 </head>
